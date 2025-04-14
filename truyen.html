@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="truyen">
     <header>
       <div class="logo">
         <img src="images/logo.png" alt="Thư Viện Ảo" />
@@ -38,7 +38,7 @@
       <div class="search-box">
         <input type="text" id="search-input" placeholder="Tìm truyện..." />
       </div>
-      <div class="book-list">
+      <div class="book-list" id="book-list">
         <div class="book">
           <h3>Cô Bé Lọ Lem</h3>
           <a
@@ -286,13 +286,13 @@
             target="_blank"
             >Tải Về</a
           >
-        </div>
-        <div class="pdf-preview" id="pdfPreview">
-          <div class="close" onclick="closePdf()">&times;</div>
-          <iframe src="" id="pdfFrame"></iframe>
-        </div>
       </div>
     </section>
+
+    <div class="pdf-preview" id="pdfPreview">
+      <div class="close" onclick="closePdf()">&times;</div>
+      <iframe src="" id="pdfFrame"></iframe>
+    </div>
 
     <footer>
       <p>&copy; 2025 Thư Viện Ảo. All rights reserved.</p>
