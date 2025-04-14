@@ -95,3 +95,12 @@ function closePdf() {
   document.getElementById("pdfPreview").style.display = "none";
   document.getElementById("pdfFrame").src = "";
 }
+window.addEventListener("scroll", () => {
+  const bg = document.querySelector("body::before");
+  const scrollY = window.scrollY;
+  const maxOpacity = 0.07;
+  document.body.style.setProperty(
+    "--bg-opacity",
+    Math.max(0, maxOpacity - scrollY / 1000)
+  );
+});
