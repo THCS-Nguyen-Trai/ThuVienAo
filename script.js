@@ -1,4 +1,3 @@
-// Hiệu ứng khi cuộn trang
 window.addEventListener("scroll", () => {
   const header = document.querySelector("header");
   if (window.scrollY > 50) {
@@ -7,7 +6,6 @@ window.addEventListener("scroll", () => {
     header.classList.remove("scrolled");
   }
 
-  // Kích hoạt hiệu ứng khi scroll đến phần tử
   const animatedElements = document.querySelectorAll(".animate-on-scroll");
   animatedElements.forEach((element) => {
     const elementPosition = element.getBoundingClientRect().top;
@@ -19,7 +17,6 @@ window.addEventListener("scroll", () => {
   });
 });
 
-// Khởi tạo Intersection Observer cho hiệu ứng scroll
 document.addEventListener("DOMContentLoaded", function () {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -37,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Hiệu ứng typewriter cho tiêu đề chính
 function setupTypewriter() {
   const typewriterElements = document.querySelectorAll(".typewriter");
   typewriterElements.forEach((el) => {
@@ -52,10 +48,8 @@ function setupTypewriter() {
   });
 }
 
-// Gọi hàm khi trang tải xong
 window.addEventListener("load", setupTypewriter);
 
-// Xử lý sự kiện click
 document.getElementById("kham-pha-ngay")?.addEventListener("click", () => {
   alert(
     "Chào mừng bạn đến với Thư Viện Ảo! Hãy khám phá thế giới sách tuyệt vời này nhé."
@@ -68,7 +62,6 @@ document.getElementById("y-nghia")?.addEventListener("click", () => {
   );
 });
 
-// Hiệu ứng khi di chuột qua sách
 const books = document.querySelectorAll(".book");
 books.forEach((book) => {
   book.addEventListener("mouseenter", () => {
@@ -78,3 +71,27 @@ books.forEach((book) => {
     book.style.transform = "scale(1)";
   });
 });
+// ==== Tìm kiếm truyện ====
+const searchInput = document.getElementById("search-input");
+searchInput?.addEventListener("input", function () {
+  const keyword = this.value.toLowerCase();
+  document.querySelectorAll(".book").forEach((book) => {
+    const title = book.querySelector("h3")?.textContent.toLowerCase() || "";
+    book.style.display = title.includes(keyword) ? "block" : "none";
+  });
+});
+
+// ==== Xem trước PDF ====
+document.addEventListener("click", function (e) {
+  const link = e.target.closest("a");
+  if (link && link.textContent.includes("Đọc Online")) {
+    e.preventDefault();
+    document.getElementById("pdfFrame").src = link.href;
+    document.getElementById("pdfPreview").style.display = "block";
+  }
+});
+
+function closePdf() {
+  document.getElementById("pdfPreview").style.display = "none";
+  document.getElementById("pdfFrame").src = "";
+}
