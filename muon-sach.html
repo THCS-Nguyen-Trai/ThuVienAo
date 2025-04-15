@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mượn Sách - Thư Viện Ảo</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function () {
+        emailjs.init("user_demoID_replace_later"); // sẽ thay bằng user ID thực sau khi cấu hình
+      })();
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="muon">
+    <header>
+      <div class="logo">
+        <img src="images/logo.png" alt="Thư Viện Ảo" />
+        <div class="logo-text">
+          <h1>Thư Viện Ảo</h1>
+          <h4 class="school">THCS NGUYỄN TRÃI</h4>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Trang Chủ</a></li>
+          <li><a href="muon-sach.html">Mượn Sách</a></li>
+          <li><a href="index.html">Trang Chủ</a></li>
+          <li><a href="muon-sach.html">Mượn Sách</a></li>
+          <li><a href="sach-giao-khoa.html">Sách Giáo Khoa</a></li>
+          <li><a href="truyen.html">Truyện</a></li>
+          <li><a href="bach-khoa.html">Bách Khoa</a></li>
+          <li><a href="y-nghia.html">Ý Nghĩa</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="animate-on-scroll">
+      <h1 class="typewriter">Mượn Sách</h1>
+      <p class="fade-in delay-1">Tìm và đăng ký mượn sách online</p>
+
+      <form id="borrowForm" class="fade-in delay-2">
+        <div class="form-group">
+          <label for="fullname">Họ và Tên:</label>
+          <input type="text" id="fullname" required />
+        </div>
+        <div class="form-group">
+          <label for="class">Lớp:</label>
+          <input type="text" id="class" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Gmail:</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="book">Tên Sách Muốn Mượn:</label>
+          <input type="text" id="book" required />
+        </div>
+        <button type="submit" class="btn">Gửi yêu cầu</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Thư Viện Ảo. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Tự động điền tên sách
+      const searchInput = document.getElementById("search-book");
+      const bookInput = document.getElementById("book");
+      searchInput?.addEventListener("input", function () {
+        bookInput.value = this.value;
+      });
+
+      // Gửi form qua EmailJS
+      document
+        .getElementById("borrowForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          emailjs
+            .send("gmail", "template_default", {
+              from_name: document.getElementById("fullname").value,
+              from_class: document.getElementById("class").value,
+              from_email: document.getElementById("email").value,
+              book_name: document.getElementById("book").value,
+              to_email: "hophituankhoi6@gmail.com",
+            })
+            .then(
+              function () {
+                alert("Yêu cầu mượn sách đã được gửi thành công!");
+                document.getElementById("borrowForm").reset();
+              },
+              function (error) {
+                alert("Gửi thất bại: " + JSON.stringify(error));
+              }
+            );
+        });
+    </script>
+  </body>
+</html>
