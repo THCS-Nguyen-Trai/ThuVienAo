@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
       (function () {
-        emailjs.init("user_demoID_replace_later"); // sẽ thay bằng user ID thực sau khi cấu hình
+        emailjs.init("9RXUV_FdDZKl3OMcj"); // <-- Dán Public Key từ EmailJS
       })();
     </script>
     <link
@@ -21,7 +21,7 @@
       <div class="logo">
         <img src="images/logo.png" alt="Thư Viện Ảo" />
         <div class="logo-text">
-          <h1>Thư Viện Ảo</h1>
+          <h1>THƯ VIỆN ẢO</h1>
           <h4 class="school">THCS NGUYỄN TRÃI</h4>
         </div>
       </div>
@@ -29,12 +29,10 @@
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
           <li><a href="muon-sach.html">Mượn Sách</a></li>
-          <li><a href="index.html">Trang Chủ</a></li>
-          <li><a href="muon-sach.html">Mượn Sách</a></li>
           <li><a href="sach-giao-khoa.html">Sách Giáo Khoa</a></li>
           <li><a href="truyen.html">Truyện</a></li>
-          <li><a href="bach-khoa.html">Bách Khoa</a></li>
-          <li><a href="y-nghia.html">Ý Nghĩa</a></li>
+          <li><a href="bach-khoa.html">Sách Bách Khoa</a></li>
+          <li><a href="y-nghia.html">Ý Nghĩa Của Việc Đọc Sách</a></li>
         </ul>
       </nav>
     </header>
@@ -69,26 +67,18 @@
     </footer>
 
     <script>
-      // Tự động điền tên sách
-      const searchInput = document.getElementById("search-book");
-      const bookInput = document.getElementById("book");
-      searchInput?.addEventListener("input", function () {
-        bookInput.value = this.value;
-      });
-
-      // Gửi form qua EmailJS
       document
         .getElementById("borrowForm")
         .addEventListener("submit", function (e) {
           e.preventDefault();
 
           emailjs
-            .send("gmail", "template_default", {
+            .send("service_frtzyhr", "template_5one3ba", {
               from_name: document.getElementById("fullname").value,
               from_class: document.getElementById("class").value,
               from_email: document.getElementById("email").value,
               book_name: document.getElementById("book").value,
-              to_email: "hophituankhoi6@gmail.com",
+              to_email: "hophituankhoi6@gmail.com", // có thể bỏ nếu cấu hình sẵn trong template
             })
             .then(
               function () {
