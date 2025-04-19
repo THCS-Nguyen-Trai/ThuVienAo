@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mượn Sách - Thư Viện Ảo</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script>
-      (function () {
-        emailjs.init("9RXUV_FdDZKl3OMcj"); // <-- Dán Public Key từ EmailJS
-      })();
-    </script>
     <link
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Patrick+Hand&display=swap"
       rel="stylesheet"
@@ -44,19 +38,19 @@
       <form id="borrowForm" class="fade-in delay-2">
         <div class="form-group">
           <label for="fullname">Họ và Tên:</label>
-          <input type="text" id="fullname" required />
+          <input type="text" name="fullname" required />
         </div>
         <div class="form-group">
           <label for="class">Lớp:</label>
-          <input type="text" id="class" required />
+          <input type="text" name="class" required />
         </div>
         <div class="form-group">
           <label for="email">Gmail:</label>
-          <input type="email" id="email" required />
+          <input type="email" name="email" required />
         </div>
         <div class="form-group">
           <label for="book">Tên Sách Muốn Mượn:</label>
-          <input type="text" id="book" required />
+          <input type="text" name="book" required />
         </div>
         <button type="submit" class="btn">Gửi yêu cầu</button>
       </form>
@@ -66,29 +60,25 @@
       <p>&copy; 2025 Thư Viện Ảo. All rights reserved.</p>
     </footer>
 
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
+      (function () {
+        emailjs.init("9RXUV_FdDZKl3OMcj");
+      })();
+
       document
         .getElementById("borrowForm")
         .addEventListener("submit", function (e) {
           e.preventDefault();
-
-          emailjs
-            .send("service_frtzyhr", "template_5one3ba", {
-              from_name: document.getElementById("fullname").value,
-              from_class: document.getElementById("class").value,
-              from_email: document.getElementById("email").value,
-              book_name: document.getElementById("book").value,
-              to_email: "hophituankhoi6@gmail.com", // có thể bỏ nếu cấu hình sẵn trong template
-            })
-            .then(
-              function () {
-                alert("Yêu cầu mượn sách đã được gửi thành công!");
-                document.getElementById("borrowForm").reset();
-              },
-              function (error) {
-                alert("Gửi thất bại: " + JSON.stringify(error));
-              }
-            );
+          emailjs.sendForm("service_gwdsr78", "template_e1nncke", this).then(
+            () => {
+              alert("Gửi thành công! Cảm ơn bạn.");
+              this.reset();
+            },
+            (error) => {
+              alert("Lỗi gửi: " + JSON.stringify(error));
+            }
+          );
         });
     </script>
   </body>
