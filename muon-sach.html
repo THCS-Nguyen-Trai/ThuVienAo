@@ -9,6 +9,15 @@
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Patrick+Hand&display=swap"
       rel="stylesheet"
     />
+    <style>
+      .status-message {
+        text-align: center;
+        margin-top: 1rem;
+        font-weight: 500;
+        color: var(--primary-color);
+        display: none;
+      }
+    </style>
   </head>
   <body class="muon">
     <header>
@@ -38,7 +47,13 @@
       <form id="borrowForm" class="fade-in delay-2">
         <div class="form-group">
           <label for="fullname">Họ và Tên:</label>
-          <input type="text" name="fullname" required />
+          <input
+            type="text"
+            name="fullname"
+            required
+            pattern="^[A-ZÀ-Ỵ][a-zà-ỹ]*(\s[A-ZÀ-Ỵ][a-zà-ỹ]*)+$"
+            title="Viết hoa đầu mỗi từ, không dùng ký tự đặc biệt"
+          />
         </div>
         <div class="form-group">
           <label for="class">Lớp:</label>
@@ -46,13 +61,20 @@
         </div>
         <div class="form-group">
           <label for="email">Gmail:</label>
-          <input type="email" name="email" required />
+          <input
+            type="email"
+            name="email"
+            required
+            pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+            title="Chỉ chấp nhận Gmail"
+          />
         </div>
         <div class="form-group">
           <label for="book">Tên Sách Muốn Mượn:</label>
           <input type="text" name="book" required />
         </div>
         <button type="submit" class="btn">Gửi yêu cầu</button>
+        <div id="statusMessage" class="status-message"></div>
       </form>
     </section>
 
@@ -66,20 +88,36 @@
         emailjs.init("9RXUV_FdDZKl3OMcj");
       })();
 
-      document
-        .getElementById("borrowForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          emailjs.sendForm("service_gwdsr78", "template_e1nncke", this).then(
-            () => {
-              alert("Gửi thành công! Cảm ơn bạn.");
-              this.reset();
-            },
-            (error) => {
-              alert("Lỗi gửi: " + JSON.stringify(error));
-            }
-          );
-        });
+      const form = document.getElementById("borrowForm");
+      const statusMessage = document.getElementById("statusMessage");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        if (!form.checkValidity()) {
+          statusMessage.style.display = "block";
+          statusMessage.style.color = "red";
+          statusMessage.textContent =
+            "❌ Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.";
+          return;
+        }
+
+        statusMessage.style.display = "block";
+        statusMessage.style.color = "#555";
+        statusMessage.textContent = "Đang gửi yêu cầu...";
+
+        emailjs.sendForm("service_gwdsr78", "template_e1nncke", this).then(
+          () => {
+            statusMessage.style.color = "green";
+            statusMessage.textContent = "✅ Gửi thành công! Cảm ơn bạn.";
+            form.reset();
+          },
+          (error) => {
+            statusMessage.style.color = "red";
+            statusMessage.textContent = "❌ Lỗi gửi: " + error.text;
+          }
+        );
+      });
     </script>
   </body>
 </html>
